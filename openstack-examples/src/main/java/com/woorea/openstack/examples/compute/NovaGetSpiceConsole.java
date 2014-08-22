@@ -6,10 +6,12 @@ import com.woorea.openstack.keystone.Keystone;
 import com.woorea.openstack.keystone.model.Access;
 import com.woorea.openstack.keystone.model.authentication.UsernamePassword;
 import com.woorea.openstack.nova.Nova;
+import com.woorea.openstack.nova.api.ServersResource.GetSpiceConsoleServer;
 import com.woorea.openstack.nova.model.Server;
+import com.woorea.openstack.nova.model.ServerAction.SpiceConsole;
 import com.woorea.openstack.nova.model.Servers;
 
-public class NovaListServers {
+public class NovaGetSpiceConsole {
 	
 	/**
 	 * @param args
@@ -29,8 +31,19 @@ public class NovaListServers {
 		//novaClient.enableLogging(Logger.getLogger("nova"), 100 * 1024);
 		
 		Servers servers = novaClient.servers().list(true).execute();
+		String id = null;
 		for(Server server : servers) {
+			id = server.getId();
 			System.out.println(server);
+		}
+		//use server id to get its spice console
+		if (id != null)
+		{
+			GetSpiceConsoleServer cs = novaClient.servers().getSpiceConsole(id, "spice-html5");//novnc"spice-html5"
+			SpiceConsole console = cs.execute();		
+			
+			System.out.println(console.getUrl());		
+			
 		}
 		
 	}

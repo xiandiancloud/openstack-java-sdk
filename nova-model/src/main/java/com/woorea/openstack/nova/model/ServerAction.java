@@ -399,6 +399,63 @@ public interface ServerAction extends Serializable {
 		}
 		
 	}
+	////////////////////////////////
+	@JsonRootName("os-getSPICEConsole")
+	public static final class GetSpiceConsole implements ServerAction {
+		
+		private String type;
+
+		public GetSpiceConsole() {
+			super();
+			// TODO Auto-generated constructor stub
+		}
+		
+
+		public GetSpiceConsole(String type) {
+			super();
+			this.type = type;
+		}
+
+		/**
+		 * @return the type
+		 */
+		public String getType() {
+			return type;
+		}
+
+		/**
+		 * @param type the type to set
+		 */
+		public void setType(String type) {
+			this.type = type;
+		}
+		
+	}
+	
+	
+	@JsonRootName("console")
+	public static final class SpiceConsole implements ServerAction {
+		
+		private String type;
+		
+		private String url;
+
+		/**
+		 * @return the type
+		 */
+		public String getType() {
+			return type;
+		}
+
+		/**
+		 * @return the url
+		 */
+		public String getUrl() {
+			return url;
+		}
+		
+	}
+	////////////////////////////////
 	
 	@JsonRootName("os-getVNCConsole")
 	public static final class GetVncConsole implements ServerAction {

@@ -16,6 +16,7 @@ import com.woorea.openstack.nova.model.ServerAction.ConsoleOutput;
 import com.woorea.openstack.nova.model.ServerAction.CreateBackup;
 import com.woorea.openstack.nova.model.ServerAction.CreateImage;
 import com.woorea.openstack.nova.model.ServerAction.GetConsoleOutput;
+import com.woorea.openstack.nova.model.ServerAction.GetSpiceConsole;
 import com.woorea.openstack.nova.model.ServerAction.GetVncConsole;
 import com.woorea.openstack.nova.model.ServerAction.Lock;
 import com.woorea.openstack.nova.model.ServerAction.Pause;
@@ -25,6 +26,7 @@ import com.woorea.openstack.nova.model.ServerAction.Rescue;
 import com.woorea.openstack.nova.model.ServerAction.Resize;
 import com.woorea.openstack.nova.model.ServerAction.Resume;
 import com.woorea.openstack.nova.model.ServerAction.RevertResize;
+import com.woorea.openstack.nova.model.ServerAction.SpiceConsole;
 import com.woorea.openstack.nova.model.ServerAction.Start;
 import com.woorea.openstack.nova.model.ServerAction.Stop;
 import com.woorea.openstack.nova.model.ServerAction.Suspend;
@@ -324,11 +326,51 @@ public class ServersResource {
 
 	}
 
+	/**
+	 * Get Vnc Console
+	 * @param id
+	 * @param type
+	 * @return
+	 */
 	public GetVncConsoleServer getVncConsole(String id, String type) {
 		GetVncConsole action = new GetVncConsole(type);
 		return new GetVncConsoleServer(id, action);
 	}
 
+	//////////////////////Spice/////////////////////////////>
+	/**
+	 * get spice console
+	 * @author soong
+	 *
+	 */
+	public class GetSpiceConsoleServer extends OpenStackRequest<SpiceConsole> {
+
+		private GetSpiceConsole action;
+
+		private String id;
+
+		public GetSpiceConsoleServer(String id, GetSpiceConsole action) {
+			super(CLIENT, HttpMethod.POST, new StringBuilder("/servers/").append(id).append("/action"), Entity.json(action), SpiceConsole.class);
+		}
+
+	}
+	
+	
+	/**
+	 * Get Spice Console
+	 * @author soong
+	 *
+	 */
+	
+	public GetSpiceConsoleServer getSpiceConsole(String id, String type) {
+		GetSpiceConsole action = new GetSpiceConsole(type);
+		return new GetSpiceConsoleServer(id, action);
+	}
+	
+	
+	//////////////////////Spice/////////////////////////////<
+	
+	
 	public class GetConsoleOutputServer extends OpenStackRequest<ConsoleOutput> {
 
 		public GetConsoleOutputServer(String id, GetConsoleOutput action) {
