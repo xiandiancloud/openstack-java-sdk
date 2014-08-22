@@ -140,3 +140,7 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 </pre>
+
+h2. support for getting spice console (franzsong)
+
+How to get Spice-HTML5 Console? Here clones get-vnc-console action to support.
